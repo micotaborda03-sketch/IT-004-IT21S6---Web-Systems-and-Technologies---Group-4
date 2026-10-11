@@ -12,6 +12,15 @@ body {
     color: #c1b252;
     margin-left: 20px;
 }
+
+.navbar-brand:hover {
+    color: #e5d463;
+}
+
+.navbar-brand:focus {
+    color: #c1b252;
+}
+
 /* De Leon, Charles Jacob G, Barte, Aaron John M., Cosme, Jan Yvan G., Lucena, Rowvic Joshua C., Masiglat, Ivan Rudolf S., Taborda, Mico S  */
 .nav-link {
     margin-right: 1em !important;
