@@ -1,6 +1,7 @@
 body {
     padding: 0;
     margin: 0;
+    background: #f2e8d0;
 }
 /* De Leon, Charles Jacob G, Barte, Aaron John M., Cosme, Jan Yvan G., Lucena, Rowvic Joshua C., Masiglat, Ivan Rudolf S., Taborda, Mico S  */
 /*---navigation bar---*/
@@ -183,13 +184,15 @@ body {
 
 /*--page-footer--*/
 .page-footer {
-  background-color: #222;
-  color: #ffefef;
+  background: #3e2a1e;
+  border-top: 3px double #c9a227;
+  color: #e3c565;
   padding: 60px 0 30px;
+  font-family: 'Playfair Display', serif;
 }
 
 .footer-copyright {
-  color: #666;
+  color: #726434;
   padding: 40px 0;
 }
 /* De Leon, Charles Jacob G, Barte, Aaron John M., Cosme, Jan Yvan G., Lucena, Rowvic Joshua C., Masiglat, Ivan Rudolf S., Taborda, Mico S  */
