@@ -4,7 +4,7 @@ $(document).ready(function () {
 
     function updateActiveNav() {
         let currentId = '';
-        const scrollPosition = $(window).scrollTop() + 140;
+        const scrollPosition = $(window).scrollTop() + 240;
 
         $sections.each(function () {
             const $section = $(this);

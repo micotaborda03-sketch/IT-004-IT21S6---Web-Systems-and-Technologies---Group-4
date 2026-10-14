@@ -5,33 +5,88 @@ body {
 /* De Leon, Charles Jacob G, Barte, Aaron John M., Cosme, Jan Yvan G., Lucena, Rowvic Joshua C., Masiglat, Ivan Rudolf S., Taborda, Mico S  */
 /*---navigation bar---*/
 .navbar {
-    background-color: #fff;
+    margin: 0;
+    background: #3e2a1e;
+    padding: 20px 30px;
+    border-bottom: 3px double #c9a227;
+    font-family: 'Playfair Display', Georgia, serif;
 }
 
 .navbar-brand{
-    color: #c1b252;
-    margin-left: 20px;
+    margin: 0;
+    font-size: 26px;
 }
 
 .navbar-brand:hover {
-    color: #e5d463;
+    color: #ffde73;
+    text-shadow: 0 0 5px #ffde7332;
 }
 
+.navbar-brand, 
 .navbar-brand:focus {
-    color: #c1b252;
+    color: #e3c565;
+}
+
+.navbar-brand .company-logo {
+    width: 48px;
+    height: 48px;
+    object-fit: contain;
+    flex-shrink: 0;
+    border-radius: 50%;
+    border: 2px solid #c9a227;
 }
 
 /* De Leon, Charles Jacob G, Barte, Aaron John M., Cosme, Jan Yvan G., Lucena, Rowvic Joshua C., Masiglat, Ivan Rudolf S., Taborda, Mico S  */
-.nav-link {
+.navbar .nav-link {
+    position: relative;
     margin-right: 1em !important;
+    padding: 0.5rem 0.25rem;
+    color: /*#f2e6c8;*/ #e3c565;
+    transition: color 160ms ease;
 }
 
-.nav-item button {
-    background-color: #e0d16f;;
+.navbar .nav-link::after {
+    position: absolute;
+    right: 0.25rem;
+    bottom: 0.2rem;
+    left: 0.25rem;
+    height: 2px;
+    background: #c9a227;
+    content: "";
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 160ms ease;
 }
 
-.nav-item button:hover {
-    background-color: #ffeb67;
+.navbar .nav-link:hover,
+.navbar .nav-link:focus-visible,
+.navbar .nav-link.active {
+    color: #ffde73;
+}
+
+.navbar .nav-link:hover::after,
+.navbar .nav-link:focus-visible::after,
+.navbar .nav-link.active::after {
+    transform: scaleX(1);
+}
+
+.navbar .nav-link:focus-visible {
+    outline: 2px solid #ffde73;
+    outline-offset: 3px;
+}
+
+.nav-item .btn {
+    background-color: #c9a227;
+    color: #3e2a1e;
+}
+
+.nav-item .btn:hover {
+    background-color: #ffde73;
+    color: #3e2a1e;
+}
+
+.nav-item .btn:hover::after {
+    transform: scaleX(0);
 }
 
 /*---header---*/
