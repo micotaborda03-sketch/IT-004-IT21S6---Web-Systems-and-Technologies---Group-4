@@ -74,14 +74,203 @@
             <h2>Have a quick view of our catalog</h2>
             <div class="row">
                 <div class="col-lg-12 col-md-12 col-sm-12">
-                    <h3 class="feature-title">Popular Books</h3>
-                    <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. 
-                        Quas tempora dolorem nemo corrupti quasi, 
-                        delectus ad fugit rerum nesciunt id cupiditate ipsa quibusdam doloremque fugiat velit? 
-                        Consectetur veniam quaerat dolorem? Lorem ipsum, dolor sit amet consectetur adipisicing elit. 
-                        Suscipit eius, culpa explicabo vitae earum maxime blanditiis sequi rerum sed non soluta fugiat quaerat recusandae. 
-                        Quam blanditiis debitis quasi nesciunt aliquam.
-                    </p>
+                    <div class="d-flex align-items-start">
+                        <ul class="nav nav-tabs flex-column" id="genreTabs v-pills-tab" role="tablist" aria-orientation="vertical">
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link active" id="scifi-tab" data-bs-toggle="tab" data-bs-target="#scifi" type="button" role="tab">Sci-Fi & Cyberpunk</button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link" id="fantasy-tab" data-bs-toggle="tab" data-bs-target="#fantasy" type="button" role="tab">Fantasy & Supernatural</button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link" id="action-tab" data-bs-toggle="tab" data-bs-target="#action" type="button" role="tab">Action & Adventure</button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link" id="romance-tab" data-bs-toggle="tab" data-bs-target="#romance" type="button" role="tab">Romance & Drama</button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link" id="mystery-tab" data-bs-toggle="tab" data-bs-target="#mystery" type="button" role="tab">Mystery, Horror & Psychological</button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link" id="academics-tab" data-bs-toggle="tab" data-bs-target="#academics" type="button" role="tab">Academics & Non-Fiction</button>
+                            </li>
+                        </ul>
+                        <div class="tab-content" id="genreTabsContent">
+                            <!-- 1. Sci-Fi & Cyberpunk -->
+                            <div class="tab-pane fade show active" id="scifi" role="tabpanel" aria-labelledby="scifi-tab">
+                                <div class="library-table-wrap">
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th>Title</th>
+                                                <th>Author</th>
+                                                <th>Year</th>
+                                                <th>Status</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr> <!-- De Leon, Charles Jacob G, Barte, Aaron John M., Cosme, Jan Yvan G., Lucena, Rowvic Joshua C., Masiglat, Ivan Rudolf S., Taborda, Mico S -->
+                                                <td>Neon Requiem</td>
+                                                <td>K. Vasquez</td>
+                                                <td>2022</td>
+                                                <td><span class="book-status book-status-available">Available</span></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Synthwave Horizon</td>
+                                                <td>J. Park</td>
+                                                <td>2021</td>
+                                                <td><span class="book-status book-status-borrowed">Borrowed</span></td>
+                                            </tr>
+                                            <tr> <!-- De Leon, Charles Jacob G, Barte, Aaron John M., Cosme, Jan Yvan G., Lucena, Rowvic Joshua C., Masiglat, Ivan Rudolf S., Taborda, Mico S -->
+                                                <td>Digital Alchemy</td>
+                                                <td>R. Chen</td>
+                                                <td>2023</td>
+                                                <td><span class="book-status book-status-inprocess">In Process</span></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Chrome Lotus</td>
+                                                <td>A. Iwata</td>
+                                                <td>2020</td>
+                                                <td><span class="book-status book-status-missing">Missing</span></td>
+                                            </tr>
+                                            <tr> <!-- De Leon, Charles Jacob G, Barte, Aaron John M., Cosme, Jan Yvan G., Lucena, Rowvic Joshua C., Masiglat, Ivan Rudolf S., Taborda, Mico S -->
+                                                <td>Quantum Thief</td>
+                                                <td>M. Rajaniemi</td>
+                                                <td>2019</td>
+                                                <td><span class="book-status book-status-damaged">Damaged</span></td>
+                                            </tr>
+                                            <tr>
+                                                <td>The Codebreakers</td>
+                                                <td>A. Turing</td>
+                                                <td>2024</td>
+                                                <td><span class="book-status book-status-available">Available</span></td>
+                                            </tr> <!-- De Leon, Charles Jacob G, Barte, Aaron John M., Cosme, Jan Yvan G., Lucena, Rowvic Joshua C., Masiglat, Ivan Rudolf S., Taborda, Mico S -->
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+                            <!-- 2. Fantasy & Supernatural -->
+                            <div class="tab-pane fade" id="fantasy" role="tabpanel" aria-labelledby="fantasy-tab">
+                                <div class="library-table-wrap">
+                                    <table class="table">
+                                        <thead>
+                                            <tr> <!-- De Leon, Charles Jacob G, Barte, Aaron John M., Cosme, Jan Yvan G., Lucena, Rowvic Joshua C., Masiglat, Ivan Rudolf S., Taborda, Mico S -->
+                                                <th>Title</th>
+                                                <th>Author</th>
+                                                <th>Year</th>
+                                                <th>Status</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <!-- No entries yet -->
+                                        </tbody>
+                                    </table>
+                                    <div class="library-empty-state">
+                                        <i class="bi bi-journal-x"></i>
+                                        <p>No titles in this genre yet</p>
+                                        <span>Check back soon for new arrivals</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- De Leon, Charles Jacob G, Barte, Aaron John M., Cosme, Jan Yvan G., Lucena, Rowvic Joshua C., Masiglat, Ivan Rudolf S., Taborda, Mico S -->
+                            <!-- 3. Action, Adventure & Martial Arts -->
+                            <div class="tab-pane fade" id="action" role="tabpanel" aria-labelledby="action-tab">
+                                <div class="library-table-wrap">
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th>Title</th>
+                                                <th>Author</th>
+                                                <th>Year</th>
+                                                <th>Status</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <!-- No entries yet --> <!-- De Leon, Charles Jacob G, Barte, Aaron John M., Cosme, Jan Yvan G., Lucena, Rowvic Joshua C., Masiglat, Ivan Rudolf S., Taborda, Mico S -->
+                                        </tbody>
+                                    </table>
+                                    <div class="library-empty-state">
+                                        <i class="bi bi-journal-x"></i>
+                                        <p>No titles in this genre yet</p>
+                                        <span>Check back soon for new arrivals</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- De Leon, Charles Jacob G, Barte, Aaron John M., Cosme, Jan Yvan G., Lucena, Rowvic Joshua C., Masiglat, Ivan Rudolf S., Taborda, Mico S -->
+                            <!-- 4. Romance & Drama -->
+                            <div class="tab-pane fade" id="romance" role="tabpanel" aria-labelledby="romance-tab">
+                                <div class="library-table-wrap">
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th>Title</th>
+                                                <th>Author</th>
+                                                <th>Year</th>
+                                                <th>Status</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <!-- No entries yet -->
+                                        </tbody>
+                                    </table> <!-- De Leon, Charles Jacob G, Barte, Aaron John M., Cosme, Jan Yvan G., Lucena, Rowvic Joshua C., Masiglat, Ivan Rudolf S., Taborda, Mico S -->
+                                    <div class="library-empty-state">
+                                        <i class="bi bi-journal-x"></i>
+                                        <p>No titles in this genre yet</p>
+                                        <span>Check back soon for new arrivals</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- De Leon, Charles Jacob G, Barte, Aaron John M., Cosme, Jan Yvan G., Lucena, Rowvic Joshua C., Masiglat, Ivan Rudolf S., Taborda, Mico S -->
+                            <!-- 5. Mystery, Horror & Psychological -->
+                            <div class="tab-pane fade" id="mystery" role="tabpanel" aria-labelledby="mystery-tab">
+                                <div class="library-table-wrap">
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th>Title</th>
+                                                <th>Author</th>
+                                                <th>Year</th>
+                                                <th>Status</th>                
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <!-- No entries yet --> <!-- De Leon, Charles Jacob G, Barte, Aaron John M., Cosme, Jan Yvan G., Lucena, Rowvic Joshua C., Masiglat, Ivan Rudolf S., Taborda, Mico S -->
+                                        </tbody>
+                                    </table>
+                                    <div class="library-empty-state">
+                                        <i class="bi bi-journal-x"></i>
+                                        <p>No titles in this genre yet</p>
+                                        <span>Check back soon for new arrivals</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- De Leon, Charles Jacob G, Barte, Aaron John M., Cosme, Jan Yvan G., Lucena, Rowvic Joshua C., Masiglat, Ivan Rudolf S., Taborda, Mico S -->
+                            <!-- 6. Academics, Non-Fiction & Skill Building -->
+                            <div class="tab-pane fade" id="academics" role="tabpanel" aria-labelledby="academics-tab">
+                                <div class="library-table-wrap">
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th>Title</th>
+                                                <th>Author</th>
+                                                <th>Year</th>
+                                                <th>Status</th>                                                
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <!-- No entries yet --> <!-- De Leon, Charles Jacob G, Barte, Aaron John M., Cosme, Jan Yvan G., Lucena, Rowvic Joshua C., Masiglat, Ivan Rudolf S., Taborda, Mico S -->
+                                        </tbody>
+                                    </table>
+                                    <div class="library-empty-state">
+                                        <i class="bi bi-journal-x"></i>
+                                        <p>No titles in this genre yet</p>
+                                        <span>Check back soon for new arrivals</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div> <!-- De Leon, Charles Jacob G, Barte, Aaron John M., Cosme, Jan Yvan G., Lucena, Rowvic Joshua C., Masiglat, Ivan Rudolf S., Taborda, Mico S -->
