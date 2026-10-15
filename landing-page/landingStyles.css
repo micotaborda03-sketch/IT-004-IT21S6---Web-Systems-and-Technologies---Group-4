@@ -152,7 +152,7 @@ body {
 
 /*vertical tabs*/
 .nav-tabs {
-    display: flex;
+    display: block;
     justify-content: center;
     flex-wrap: nowrap;
     margin: 0;
@@ -165,7 +165,7 @@ body {
 }
 
 .nav-tabs .nav-link {
-    display: flex;
+    display: block;
     border: none;
     background: transparent;
     color: #e3c565;
