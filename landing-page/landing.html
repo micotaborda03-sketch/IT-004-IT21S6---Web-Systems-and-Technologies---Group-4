@@ -304,22 +304,101 @@
         <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
-                    <div class="modal-header">
-                        <h1 class="modal-title fs-5" id="exampleModalLabel">Login as:</h1>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="choices">
-                            <a href="../user-pages/users.html">
-                                <i class="bi bi-person"></i>
-                                <span>User</span>
-                                <small>Browse the collection</small>
-                            </a> <!-- De Leon, Charles Jacob G, Barte, Aaron John M., Cosme, Jan Yvan G., Lucena, Rowvic Joshua C., Masiglat, Ivan Rudolf S., Taborda, Mico S -->
-                            <a href="../admin-pages/admin.html">
-                                <i class="bi bi-gear-wide-connected"></i>
-                                <span>Admin</span>
-                                <small>Manage inventory</small>
-                            </a>
+                    <ul class="nav nav-tabs" role="tablist">
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link active" id="user-tab"
+                                    data-bs-toggle="tab" data-bs-target="#user"
+                                    type="button" role="tab">
+                                User
+                            </button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="admin-tab"
+                                    data-bs-toggle="tab" data-bs-target="#admin"
+                                    type="button" role="tab">
+                                Admin
+                            </button>
+                        </li>
+                    </ul>
+                    <div class="tab-content " id="modal-tabs-content">
+                        <div class="tab-pane fade show active" id="user" role="tabpanel" aria-labelledby="user-tab">
+                            <div class="modal-header">
+                                <h1 class="modal-title fs-5" id="userModalLabel">Login as User</h1>
+                                <ul class="nav nav-tabs">
+                                    <li class="nav-item" role="tab">
+                                        <button class="nav-link active" id="login-tab" data-bs-toggle="tab" data-bs-target="#login" type="button" role="tab">Login</button>
+                                    </li>
+                                    <li class="nav-item">
+                                        <button class="nav-link" id="signup-tab" data-bs-toggle="tab" data-bs-target="#signup" type="button" role="tab">Signup</button>
+                                    </li>
+                                </ul>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="tab-content">
+                                    <div class="tab-pane fade show active" id="login" role="tabpanel" aria-labelledby="login-tab">
+                                        <form action="../user-pages/users.html">
+                                            <div class="mb-3">
+                                                <label for="username-input" class="form-label">User Name</label>
+                                                <input type="text" class="form-control" id="username-input" placeholder="Enter your first + last name">
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="user-pass-login" class="form-label">Password</label>
+                                                <input type="password" class="form-control" id="user-pass-login" placeholder="Enter your password">
+                                            </div>
+                                            <div>
+                                                <button type="submit" class="btn btn-primary" id="login-btn">Login</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <div class="tab-pane fade" id="signup" role="tabpanel" aria-labelledby="signup-tab">
+                                        <form action="../user-pages/users.html">
+                                            <div class="mb-3">
+                                                <label for="firstname-input" class="form-label">First Name</label>
+                                                <input type="text" class="form-control" id="firstname-input" placeholder="Enter your first name">
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="lastname-input" class="form-label">Last Name</label>
+                                                <input type="text" class="form-control" id="lastname-input" placeholder="Enter your last name">
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="email-input" class="form-label">Email</label>
+                                                <input type="email" class="form-control" id="email-input" placeholder="Enter your email">
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="user-pass" class="form-label">Password</label>
+                                                <input type="password" class="form-control" id="user-pass" placeholder="Enter your password">
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="confirm-pass" class="form-label">Confirm Password</label>
+                                                <input type="password" class="form-control" id="confirm-pass" placeholder="Confirm your password">
+                                            </div>
+                                            <div>
+                                                <button type="submit" class="btn btn-primary" id="signup-btn">Sign Up</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>                                                                                     
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="admin" role="tabpanel" aria-labelledby="admin-login-tab">
+                            <div class="modal-header">
+                                <h1 class="modal-title fs-5" id="adminModalLabel">Login as Admin</h1>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <form action="../admin-pages/admin.html">
+                                <div class="mb-3">
+                                    <label for="adminname-input" class="form-label">User Name</label>
+                                    <input type="text" class="form-control" id="adminname-input" placeholder="Enter your first + last name">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="adminpass-input" class="form-label">Password</label>
+                                    <input type="password" class="form-control" id="adminpass-input" placeholder="Enter your password">
+                                </div>
+                                <div>
+                                    <button type="submit" class="btn btn-primary" id="admin-login-btn">Login</button>
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </div>
