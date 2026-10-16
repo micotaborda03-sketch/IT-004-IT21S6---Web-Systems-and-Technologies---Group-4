@@ -1,3 +1,4 @@
+const API_URL = 'http://localhost/library/';
 let currentPane = null;   
 let editingRow = null;   
 
@@ -14,46 +15,132 @@ function hideModal() {
 }
 
 function setStatus(row, status) {
-  const tag = status.toLowerCase().replace(" ", "");
+  const tag = status.toLowerCase().replace(/\s+/g, "");
   row.cells[3].innerHTML = "<span class='book-status book-status-" + tag + "'>" + status + "</span>";
 }
 
-// Show "No titles in this genre yet" only when the table has no rows.
 function updateEmptyMessage(pane) {
   const message = pane.querySelector(".book-empty-state");
-  if (message === null) {
-    return; 
-  }
+  if (!message) return;
   const rows = pane.querySelectorAll("tbody tr");
-  if (rows.length === 0) {
-    message.style.display = "";
-  } else {
-    message.style.display = "none";
+  message.style.display = rows.length === 0 ? "" : "none";
+}
+
+// Generate rows dynamically from database data
+function makeRow(book) {
+  const row = document.createElement("tr");
+  row.dataset.id = book.id; // Store SQL DB ID
+  
+  if (book.is_hidden == 1) row.classList.add("row-hidden");
+
+  row.innerHTML =
+    "<td></td><td></td><td></td><td></td><td></td>" +
+    "<td><span class='book-borrower-empty'>" + (book.borrower || "-") + "</span></td>" +
+    "<td class='text-end book-actions'>" +
+    `<i class='bi ${book.is_hidden == 1 ? "bi-eye-slash" : "bi-eye"}'></i>` +
+    "<i class='bi bi-pencil-square'></i><i class='bi bi-trash3'></i>" +
+    "</td>";
+    
+  row.cells[0].textContent = book.title;
+  row.cells[1].textContent = book.author;
+  row.cells[2].textContent = book.year;
+  row.cells[4].textContent = book.call_no;
+  setStatus(row, book.status);
+  
+  return row;
+}
+
+// Read: Fetch books from PHP backend
+async function loadBooks() {
+  try {
+    const res = await fetch(API_URL + 'get_books.php');
+    const books = await res.json();
+
+    // Clear existing static HTML rows
+    document.querySelectorAll(".tab-pane tbody").forEach(tbody => tbody.innerHTML = "");
+
+    books.forEach(book => {
+      const pane = get(book.genre_id);
+      if (pane) {
+        pane.querySelector("tbody").appendChild(makeRow(book));
+      }
+    });
+
+    document.querySelectorAll(".tab-pane").forEach(updateEmptyMessage);
+  } catch (err) {
+    console.error("Failed to load books:", err);
   }
 }
 
-function makeRow(title, author, year, status, callNo) {
-  const row = document.createElement("tr");
-  row.innerHTML =
-    "<td></td><td></td><td></td><td></td><td></td>" +
-    "<td><span class='book-borrower-empty'>-</span></td>" +
-    "<td class='text-end book-actions'>" +
-    "<i class='bi bi-eye'></i><i class='bi bi-pencil-square'></i><i class='bi bi-trash3'></i>" +
-    "</td>";
-  row.cells[0].textContent = title;
-  row.cells[1].textContent = author;
-  row.cells[2].textContent = year;
-  row.cells[4].textContent = callNo;
-  setStatus(row, status);
-  return row;
+// Create/Update: Send data to PHP backend
+async function saveBook(event) {
+  event.preventDefault();
+
+  const payload = {
+    id: editingRow ? editingRow.dataset.id : null,
+    title: get("addTitle").value.trim(),
+    author: get("addAuthor").value.trim(),
+    year: get("addYear").value.trim(),
+    call_no: get("addCall").value.trim(),
+    status: get("addStatus").value,
+    genre: get("addGenre").value
+  };
+
+  try {
+    await fetch(API_URL + 'save_book.php', {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload)
+    });
+    
+    hideModal();
+    loadBooks(); // Refresh table
+    bootstrap.Tab.getOrCreateInstance(get(payload.genre + "-tab")).show();
+  } catch (err) {
+    console.error("Failed to save book:", err);
+  }
 }
+
+// Delete: Send delete request to PHP backend
+async function deleteRow(icon) {
+  const row = icon.closest("tr");
+  const id = row.dataset.id;
+  
+  if (confirm("Delete \"" + row.cells[0].textContent + "\"?")) {
+    try {
+      await fetch(API_URL + 'delete_book.php', {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ id: id })
+      });
+      loadBooks(); // Refresh table
+    } catch (err) {
+      console.error("Failed to delete book:", err);
+    }
+  }
+}
+
+get("addForm").addEventListener("submit", saveBook);
+document.addEventListener("DOMContentLoaded", loadBooks);
+
+// Event Delegation
+document.addEventListener("click", function (event) {
+  const clicked = event.target;
+  if (clicked.classList.contains("add-btn")) {
+    openAddForm(clicked);
+  } else if (clicked.classList.contains("bi-pencil-square")) {
+    openEditForm(clicked);
+  } else if (clicked.classList.contains("bi-trash3")) {
+    deleteRow(clicked);
+  }
+});
 
 function openAddForm(button) {
   currentPane = button.closest(".tab-pane");
   editingRow = null;
   get("addModalTitle").textContent = "Add book";
   get("addForm").reset();
-  get("addGenre").value = currentPane.id;   // start on the tab you are in
+  get("addGenre").value = currentPane.id;
   showModal();
 }
 
@@ -69,76 +156,3 @@ function openEditForm(icon) {
   get("addModalTitle").textContent = "Edit book";
   showModal();
 }
-
-function toggleHide(icon) {
-  const row = icon.closest("tr");
-  row.classList.toggle("row-hidden");
-  if (row.classList.contains("row-hidden")) {
-    icon.className = "bi bi-eye-slash";   // crossed-out eye = hidden
-  } else {
-    icon.className = "bi bi-eye";
-  }
-}
-
-function deleteRow(icon) {
-  const row = icon.closest("tr");
-  const pane = icon.closest(".tab-pane");
-  const ok = confirm("Delete \"" + row.cells[0].textContent + "\"?");
-  if (ok) {
-    row.remove();
-    updateEmptyMessage(pane);
-  }
-}
-
-function saveBook(event) {
-  event.preventDefault(); // stop the page from reloading
-
-  const title = get("addTitle").value.trim();
-  const author = get("addAuthor").value.trim();
-  const year = get("addYear").value.trim();
-  const callNo = get("addCall").value.trim();
-  const status = get("addStatus").value;
-  const genre = get("addGenre").value;   // same as the tab id, e.g. "fantasy"
-
-  if (editingRow !== null) {
-    // Editing: update the existing row
-    editingRow.cells[0].textContent = title;
-    editingRow.cells[1].textContent = author;
-    editingRow.cells[2].textContent = year;
-    editingRow.cells[4].textContent = callNo;
-    setStatus(editingRow, status);
-
-    // If the genre changed, move the row to the other tab
-    const oldPane = editingRow.closest(".tab-pane");
-    const newPane = get(genre);
-    if (newPane !== oldPane) {
-      newPane.querySelector("tbody").appendChild(editingRow);
-      updateEmptyMessage(oldPane);
-      updateEmptyMessage(newPane);
-    }
-    editingRow = null;
-  } else {
-    // Adding: add a new row to the current genre tab
-    const pane = get(genre);
-    pane.querySelector("tbody").appendChild(makeRow(title, author, year, status, callNo));
-    updateEmptyMessage(pane);
-  }
-  hideModal();
-  bootstrap.Tab.getOrCreateInstance(get(genre + "-tab")).show();   // switch to that tab
-}
-
-get("addForm").addEventListener("submit", saveBook);
-
-document.addEventListener("click", function (event) {
-  const clicked = event.target;
-
-  if (clicked.classList.contains("add-btn")) {
-    openAddForm(clicked);
-  } else if (clicked.classList.contains("bi-pencil-square")) {
-    openEditForm(clicked);
-  } else if (clicked.classList.contains("bi-eye") || clicked.classList.contains("bi-eye-slash")) {
-    toggleHide(clicked);
-  } else if (clicked.classList.contains("bi-trash3")) {
-    deleteRow(clicked);
-  }
-});
