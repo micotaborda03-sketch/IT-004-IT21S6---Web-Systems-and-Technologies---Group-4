@@ -1,3 +1,5 @@
+const API_URL = 'http://localhost/library/';
+
 $(document).ready(function () {
     const $navLinks = $('.navbar-nav .nav-link');
     const $sections = $('section[id], #catalog, #services, #about');
@@ -61,4 +63,56 @@ $(document).ready(function () {
     // Keep nav in sync while scrolling
     $(window).on('scroll', updateActiveNav);
     updateActiveNav();
+
+    $('[data-auth-form]').on('submit', async function (event) {
+        event.preventDefault();
+
+        const form = this;
+        const formData = new FormData(form);
+        const message = form.querySelector('[data-auth-message]');
+        const action = form.dataset.authForm;
+        const payload = Object.fromEntries(formData.entries());
+
+        if (action === 'signup' && payload.password !== payload.confirm_password) {
+            message.textContent = 'Passwords do not match.';
+            message.classList.add('text-danger');
+            message.classList.remove('text-success');
+            return;
+        }
+
+        try {
+            const response = await fetch(API_URL + 'auth.php', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ ...payload, action })
+            });
+            const responseText = await response.text();
+            let result;
+
+            try {
+                result = JSON.parse(responseText);
+            } catch {
+                throw new Error(`The server returned an invalid response (HTTP ${response.status}). Check that PHP is running and the auth endpoint is reachable.`);
+            }
+
+            if (!response.ok || !result.success) {
+                throw new Error(result.error || 'Unable to complete your request.');
+            }
+
+            if (action === 'login' || action === 'admin_login') {
+                const destination = action === 'admin_login' ? '../admin-pages/admin.html' : '../user-pages/users.html';
+                window.location.href = destination;
+                return;
+            }
+
+            form.reset();
+            message.textContent = 'Account created. You can now log in.';
+            message.classList.add('text-success');
+            message.classList.remove('text-danger');
+        } catch (error) {
+            message.textContent = error.message;
+            message.classList.add('text-danger');
+            message.classList.remove('text-success');
+        }
+    });
 });
