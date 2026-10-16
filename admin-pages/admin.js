@@ -105,17 +105,24 @@ async function saveBook(event) {
 async function deleteRow(icon) {
   const row = icon.closest("tr");
   const id = row.dataset.id;
-  
+
   if (confirm("Delete \"" + row.cells[0].textContent + "\"?")) {
     try {
-      await fetch(API_URL + 'delete_book.php', {
+      const res = await fetch(API_URL + 'delete_book.php', {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ id: id })
       });
-      loadBooks(); // Refresh table
+      const result = await res.json();
+
+      if (result.success) {
+        loadBooks(); // Refresh table
+      } else {
+        alert("Could not delete: " + (result.error || "Unknown error"));
+      }
     } catch (err) {
       console.error("Failed to delete book:", err);
+      alert("Could not reach the server. Is Apache running?");
     }
   }
 }
