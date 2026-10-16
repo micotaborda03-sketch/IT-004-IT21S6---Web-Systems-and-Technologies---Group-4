@@ -60,7 +60,7 @@ async function loadBooks() {
     document.querySelectorAll(".tab-pane tbody").forEach(tbody => tbody.innerHTML = "");
 
     books.forEach(book => {
-      const pane = get(book.genre);
+      const pane = get(book.genre_id);
       if (pane) {
         pane.querySelector("tbody").appendChild(makeRow(book));
       }
