@@ -1,10 +1,11 @@
-# How to connect database properly
+# How to connect to the database properly
 
-1. place all php files in xampp/htdocs/library
-2. open and start xampp
-3. go to phpmyadmin and paste the following into SQL query:
+1. Place all PHP files in xampp/htdocs/library
+2. Open XAMPP and start the servers (Apache and MySQL)
+3. Go to phpMyAdmin and paste the following into the SQL query:
 
-` CREATE DATABASE IF NOT EXISTS library_db;
+```sql
+CREATE DATABASE IF NOT EXISTS library_db;
 USE library_db;
 
 CREATE TABLE IF NOT EXISTS genres (
@@ -42,4 +43,4 @@ CREATE TABLE IF NOT EXISTS borrow_requests (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (book_id) REFERENCES books(id)
 );
-`
+```
