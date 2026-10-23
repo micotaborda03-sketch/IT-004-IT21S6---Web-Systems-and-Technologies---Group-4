@@ -53,11 +53,13 @@ CREATE TABLE IF NOT EXISTS books (
 CREATE TABLE IF NOT EXISTS borrow_requests (
     id INT AUTO_INCREMENT PRIMARY KEY,
     book_id INT NOT NULL,
+    user_id INT NULL DEFAULT NULL, -- ADDED HERE
     borrow_date DATE NOT NULL,
     return_date DATE NOT NULL,
     status VARCHAR(50) DEFAULT 'Pending',
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (book_id) REFERENCES books(id)
+    FOREIGN KEY (book_id) REFERENCES books(id),
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE SET NULL -- ADDED HERE
 );
 ```
 
@@ -66,4 +68,12 @@ Create an admin account with a password string:
 ```sql
 INSERT INTO admins (username, password)
 VALUES ('your-admin-name', 'your-password');
+```
+
+For the showing of the users who browed in the admin side (Update)
+
+```sql
+ALTER TABLE borrow_requests 
+ADD user_id INT NULL DEFAULT NULL,
+ADD CONSTRAINT fk_borrow_user FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE SET NULL;
 ```
