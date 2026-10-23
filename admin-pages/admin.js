@@ -35,7 +35,7 @@ function makeRow(book) {
 
   row.innerHTML =
     "<td></td><td></td><td></td><td></td><td></td>" +
-    "<td><span class='book-borrower-empty'>" + (book.borrower || "-") + "</span></td>" +
+    "<td><span class='book-borrower-empty'>" + (book.borrower_name || "-") + "</span></td>" +
     "<td class='text-end book-actions'>" +
     `<i class='bi ${book.is_hidden == 1 ? "bi-eye-slash" : "bi-eye"}'></i>` +
     "<i class='bi bi-pencil-square'></i><i class='bi bi-trash3'></i>" +
