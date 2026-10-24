@@ -1,3 +1,22 @@
+<?php
+// Prevent the browser from caching the page so the "Back" button doesn't show it after logout
+header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
+header("Cache-Control: post-check=0, pre-check=0", false);
+header("Pragma: no-cache");
+
+session_start();
+// If the user is not logged in, kick them back to the landing page
+if (!isset($_SESSION['user_id'])) {
+    header("Location: ../landing-page/landing.html");
+    exit;
+}
+
+// Get the user's full name from the session and split it to get just the first name
+$fullName = $_SESSION['user_name'] ?? 'Reader';
+$nameParts = explode(' ', trim($fullName));
+$firstName = $nameParts[0]; 
+
+?>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -29,7 +48,7 @@
             <div class="library-user-tools">
                 <div class="library-user-greeting dropdown">
                     <button type="button" class="library-user-btn" id="userMenuBtn" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Open account menu">
-                        <span>Have a good day, readers.</span>
+                        <span>Have a good day, <?php echo htmlspecialchars($firstName); ?>.</span>
                         <i class="bi bi-person-circle"></i>
                     </button>
                     <ul class="dropdown-menu dropdown-menu-end account-menu" aria-labelledby="userMenuBtn">
@@ -37,7 +56,7 @@
                         <li><button type="button" class="dropdown-item" data-open-view="history"><i class="bi bi-clock-history me-2"></i>Borrowed History</button></li>
                         <li><button type="button" class="dropdown-item" data-open-view="liabilities"><i class="bi bi-cash-coin me-2"></i>Liabilities</button></li>
                         <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item" href="../Landing/landing.html"><i class="bi bi-box-arrow-right me-2"></i>Log Out</a></li>
+                        <li><a class="dropdown-item" href="../database/log_out.php"><i class="bi bi-box-arrow-right me-2"></i>Log Out</a></li>
                     </ul>
                 </div>
 
@@ -133,18 +152,7 @@
                                 <td>005</td>
                                 <td class="text-center"></td>
                             </tr>
-                            <tr>
-                                <td>The Codebreakers</td>
-                                <td>A. Turing</td>
-                                <td>2024</td>
-                                <td><span class="book-status book-status-available">Available</span></td>
-                                <td>006</td>
-                                <td class="text-center">
-                                <button class="btn btn-sm btn-success" data-bs-toggle="modal" data-bs-target="#borrowModal">
-                                <i class="bi bi-book"></i> Borrow
-                                </button>  <!-- De Leon, Charles Jacob G, Barte, Aaron John M., Cosme, Jan Yvan G., Lucena, Rowvic Joshua C., Masiglat, Ivan Rudolf S., Taborda, Mico S -->
-                                </td>
-                            </tr>
+                            
                         </tbody>
                     </table>
                 </div>
@@ -431,7 +439,7 @@
                     </div>
         <!-- De Leon, Charles Jacob G, Barte, Aaron John M., Cosme, Jan Yvan G., Lucena, Rowvic Joshua C., Masiglat, Ivan Rudolf S., Taborda, Mico S -->
                     <div class="modal-footer justify-content-between">
-                        <a href="../Landing/landing.html" class="btn btn-success"><i class="bi bi-box-arrow-right me-1"></i>Log Out</a>
+                        <a href="../database/log_out.php" class="btn btn-success"><i class="bi bi-box-arrow-right me-1"></i>Log Out</a>
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                     </div>
                 </div>
