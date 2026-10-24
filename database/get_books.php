@@ -5,13 +5,7 @@ header("Access-Control-Allow-Headers: Content-Type");
 header('Content-Type: application/json');
 include 'connection.php';
 
-// We JOIN the books table with borrow_requests AND users
-$sql = "SELECT b.*, 
-               CONCAT(u.first_name, ' ', u.last_name) AS borrower_name 
-        FROM books b 
-        LEFT JOIN borrow_requests br ON b.id = br.book_id AND br.status = 'Approved'
-        LEFT JOIN users u ON br.user_id = u.id";
-
+$sql = "SELECT * FROM books";
 $result = mysqli_query($conn, $sql);
 $books = array();
 
