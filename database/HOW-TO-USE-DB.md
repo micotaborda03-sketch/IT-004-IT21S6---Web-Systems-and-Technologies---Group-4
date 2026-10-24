@@ -77,3 +77,8 @@ ALTER TABLE borrow_requests
 ADD user_id INT NULL DEFAULT NULL,
 ADD CONSTRAINT fk_borrow_user FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE SET NULL;
 ```
+
+```sql New for the borrower
+TRUNCATE TABLE borrow_requests;
+UPDATE books SET status = 'Available';
+```
