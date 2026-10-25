@@ -1,4 +1,4 @@
-const API_URL = 'http://localhost/library/';
+const API_URL = 'http://localhost/IT-004-IT21S6---Web-Systems-and-Technologies---Group-4/database/';
 
 $(document).ready(function () {
     const $navLinks = $('.navbar-nav .nav-link');
@@ -99,16 +99,27 @@ $(document).ready(function () {
                 throw new Error(result.error || 'Unable to complete your request.');
             }
 
+              // 1. If it's a login, redirect them to their respective pages
             if (action === 'login' || action === 'admin_login') {
-                const destination = action === 'admin_login' ? '../admin-pages/admin.html' : '../user-pages/users.html';
+                const destination = action === 'admin_login' ? '../admin-pages/admin.html' : '../user-pages/users.php';
                 window.location.href = destination;
                 return;
             }
 
-            form.reset();
-            message.textContent = 'Account created. You can now log in.';
-            message.classList.add('text-success');
-            message.classList.remove('text-danger');
+            // 2. If it's a signup, stay on the page and show the message
+            if (action === 'signup') {
+                form.reset();
+                message.textContent = 'Account created successfully! You can now log in.';
+                message.classList.add('text-success');
+                message.classList.remove('text-danger');
+                
+                // Optional: Automatically switch to the login tab so they don't have to click it
+                const loginTab = document.getElementById('login-tab');
+                if (loginTab) {
+                    bootstrap.Tab.getOrCreateInstance(loginTab).show();
+                }
+            }
+
         } catch (error) {
             message.textContent = error.message;
             message.classList.add('text-danger');
